@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For Pooja ❤️</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body {
+      height: 100vh;
+      background: radial-gradient(circle at top, #0f2027, #203a43, #000);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top, rgba(0,0,0,0.25), rgba(0,0,0,0.75));
+      z-index: 1;
+    }
+    .container {
+      z-index: 2;
+      max-width: 92%;
+      animation: fadeIn 3s ease-in-out;
+    }
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.6rem;
+      letter-spacing: 1px;
+    }
+    .type {
+      font-size: 1.15rem;
+      line-height: 1.7;
+      min-height: 90px;
+      margin-bottom: 1.4rem;
+    }
+    button {
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      color: white;
+      border: none;
+      padding: 14px 34px;
+      border-radius: 40px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.5);
+    }
+    button:hover { transform: scale(1.08); }
+
+    .slideshow {
+      position: relative;
+      width: 240px;
+      height: 320px;
+      margin: 18px auto 10px;
+      display: none;
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 24px 50px rgba(0,0,0,0.7);
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transition: opacity 2s ease-in-out, transform 10s ease-in-out;
+      transform: scale(1.08);
+    }
+    .slide.active { opacity: 1; transform: scale(1); }
+
+    #finalMessage { display: none; margin-top: 1.4rem; font-size: 1.25rem; }
+
+    .stars span {
+      position: absolute;
+      background: white;
+      width: 2px; height: 2px;
+      opacity: 0.8;
+      animation: twinkle 6s infinite ease-in-out;
+    }
+    @keyframes twinkle {
+      0%,100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="overlay"></div>
+
+  <!-- Background Music -->
+  <audio id="bgMusic" loop>
+    <source src="assets/music.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- Stars -->
+  <div class="stars" id="stars"></div>
+
+  <div class="container">
+    <h1>Pooja ❤️</h1>
+    <div class="type" id="typeText"></div>
+    <button onclick="reveal()">Open My Heart 💖</button>
+
+    <div class="slideshow" id="slideshow">
+      <div class="slide" style="background-image:url('assets/photo.jpg')"></div>
+      <div class="slide" style="background-image:url('assets/photo2.jpg')"></div>
+      <div class="slide" style="background-image:url('assets/photo3.jpg')"></div>
+      <div class="slide" style="background-image:url('assets/photo4.jpg')"></div>
+      <div class="slide" style="background-image:url('assets/photo5.jpg')"></div>
+    </div>
+
+    <div id="finalMessage">
+      <p>From <strong>Pooja</strong>… to <strong>Gaurai</strong>…</p>
+      <p>You are my forever, my calm, my home.</p>
+      <p>I choose you. Always. 💍💕</p>
+    </div>
+  </div>
+
+  <script>
+    const text = "Before the world knew you as Gaurai... my heart chose you long before that day.";
+    let i = 0;
+    function typeWriter() {
+      if (i < text.length) {
+        document.getElementById('typeText').innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeWriter, 60);
+      }
+    }
+    typeWriter();
+
+    const slides = document.querySelectorAll('.slide');
+    let current = 0;
+    function startSlideshow() {
+      slides[0].classList.add('active');
+      setInterval(() => {
+        slides[current].classList.remove('active');
+        current = (current + 1) % slides.length;
+        slides[current].classList.add('active');
+      }, 4500);
+    }
+
+    function reveal() {
+      document.getElementById('slideshow').style.display = 'block';
+      document.getElementById('finalMessage').style.display = 'block';
+      startSlideshow();
+      const music = document.getElementById('bgMusic');
+      music.volume = 0.7; music.play().catch(()=>{});
+    }
+
+    const stars = document.getElementById('stars');
+    for (let s = 0; s < 80; s++) {
+      const star = document.createElement('span');
+      star.style.left = Math.random() * 100 + 'vw';
+      star.style.top = Math.random() * 100 + 'vh';
+      star.style.animationDelay = Math.random() * 6 + 's';
+      stars.appendChild(star);
+    }
+  </script>
+
+</body>
+</html>
